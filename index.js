@@ -71,6 +71,12 @@ bot.on("message", async message => {
         message.channel.send({embed: embedContent});
 
     }
+    if (command === "ping") {
+        // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
+        // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
+        const m = await message.channel.send("Ping?");
+        m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+    }
     if (command === "say") {
         // makes the bot say something and delete the message. As an example, it's open to anyone to use.
         // To get the "message" itself we join the `args` back into a string with spaces:
@@ -146,4 +152,10 @@ bot.on("message", async message => {
 
 // Log our bot in
 bot.login(process.env.TOKEN);
+const cliArgs = process.argv.slice(2);
+if (cliArgs[0] === "test") {
+    console.log("everything working!");
+    process.exit(-1);
+}
+
 // client.login(process.env.tokenBoxie).catch(err => console.log(err));
