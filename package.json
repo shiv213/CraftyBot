@@ -4,7 +4,7 @@
   "description": "Discord bot using NodeJS to interface with a Minecraft Server",
   "main": "index.js",
   "scripts": {
-    "test": "exit 1",
+    "test": "node index.js",
     "start": "node index.js"
   },
   "repository": {
